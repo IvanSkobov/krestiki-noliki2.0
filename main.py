@@ -1,60 +1,56 @@
-class TicTacToeModel:
-    def __init__(self):
-        self.reset_game()
-        self.reset_stats()
+Update main.py
+e84426b
+main.py
+@@ -0,0 +1,52 @@
+import tkinter as tk
+from tkinter import messagebox
 
-    def reset_game(self):
-        self.board = [["", "", ""], ["", "", ""], ["", "", ""]]
-        self.current_player = "X"
-        self.game_active = True
 
-    def reset_stats(self):
-        self.x_wins = 0
-        self.o_wins = 0
-        self.ties = 0
-        self.game_count = 0
+window = tk.Tk()
+window.title("Крестики-нолики")
+window.geometry("300x300")
 
-    def make_move(self, row, col):
-        if not self.game_active or self.board[row][col] != "":
-            return False
 
-        self.board[row][col] = self.current_player
+concurrent_player = "x"
+buttons = []
+
+def check_winner():
+    for i in range(3):
+        if buttons[i][0]['text'] == buttons[i][1]['text'] == buttons[i][2]['text'] !="":
+            return True
+        if buttons[0][i]['text'] == buttons[1][i]['text'] == buttons[2][i]['text'] !="":
+            return True
+
+    if buttons[0][0]['text'] == buttons[1][1]['text'] == buttons[2][2]['text'] !="":
         return True
+    if buttons[0][0]['text'] == buttons[1][1]['text'] == buttons[2][2]['text'] !="":
+           return True
+    return False
 
-    def check_winner(self):
-        # Проверка строк
-        for i in range(3):
-            if self.board[i][0] == self.board[i][1] == self.board[i][2] != "":
-                return self.board[i][0]
 
-        # Проверка столбцов
-        for j in range(3):
-            if self.board[0][j] == self.board[1][j] == self.board[2][j] != "":
-                return self.board[0][j]
 
-        # Проверка диагоналей
-        if self.board[0][0] == self.board[1][1] == self.board[2][2] != "":
-            return self.board[0][0]
-        if self.board[0][2] == self.board[1][1] == self.board[2][0] != "":
-            return self.board[0][2]
 
-        return None
+def on_click(row, col):
+    global concurrent_player
 
-    def check_tie(self):
-        for row in self.board:
-            for cell in row:
-                if cell == "":
-                    return False
-        return True
+    if buttons[row][col]['text'] != "":
+        return
 
-    def switch_player(self):
-        self.current_player = "O" if self.current_player == "X" else "X"
+    buttons[row][col]['text'] = concurrent_player
 
-    def update_stats(self, winner):
-        if winner == "X":
-            self.x_wins += 1
-        elif winner == "O":
-            self.o_wins += 1
-        else:
-            self.ties += 1
-        self.game_count += 1
+    if check_winner():
+        messagebox.showinfo(f"Игра-окончена", f"Игрок {concurrent_player } победил!!!")
+
+
+    concurrent_player = "0" if concurrent_player == "x" else "x"
+for i in range(3):
+    row = []
+    for j in range(3):
+        btn = tk.Button(window, text="", font=("arial", 20), width=5, height=2, command=lambda r=i, c=j: on_click(r, c))
+        btn.grid(row=i, column=j)
+        row.append(btn)
+    buttons.append(row)
+
+
+
+window.mainloop()
