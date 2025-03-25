@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 from view import TicTacToeView
 from model import TicTacToeModel
 from controller import TicTacToeController
@@ -216,4 +214,4 @@ class TicTacToeModel:
         else:
             self.ties += 1
         self.game_count += 1
->>>>>>> logica
+
