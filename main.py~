@@ -77,20 +77,13 @@ def reset_game():
 
 
 def choose_symbol(symbol):
-    global concurrent_player, buttons
+    global concurrent_player
     concurrent_player = symbol
-
-    # Удаляем стартовые кнопки
-    start_label.pack_forget()
-    btn_x.pack_forget()
-    btn_o.pack_forget()
-
+    start_button.destroy()
     create_board()
 
 
 def create_board():
-    global buttons
-    buttons = []
     for i in range(3):
         row = []
         for j in range(3):
@@ -105,8 +98,8 @@ def create_board():
 
 
 # Окно выбора символа
-start_label = tk.Label(window, text="Выберите символ:", font=("Arial", 14))
-start_label.pack()
+start_button = tk.Label(window, text="Выберите символ:", font=("Arial", 14))
+start_button.pack()
 btn_x = tk.Button(window, text="X", font=("Arial", 14), command=lambda: choose_symbol("x"))
 btn_x.pack()
 btn_o = tk.Button(window, text="O", font=("Arial", 14), command=lambda: choose_symbol("0"))
